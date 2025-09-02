@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qtab AI</title>
+    <title>qtab.ai - Analyze Any Website or Article Instantly</title>
     <style>
         * {
             margin: 0;
@@ -15,33 +15,28 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: #ffffff;
-            background: #0a0a0a;
+            background: #0f0f23;
             overflow-x: hidden;
         }
 
         /* Animated Background */
-        .bg-animation {
+        .bg-pattern {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.3;
-        }
-
-        .particle {
-            position: absolute;
-            background: linear-gradient(45deg, #6366f1, #8b5cf6, #06b6d4);
-            border-radius: 50%;
-            animation: float 20s infinite linear;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #3b82f6 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, #8b5cf6 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
         }
 
         @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
 
         /* Header */
@@ -50,11 +45,10 @@
             top: 0;
             width: 100%;
             padding: 1rem 2rem;
-            background: rgba(10, 10, 10, 0.8);
+            background: rgba(15, 15, 35, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
-            transition: all 0.3s ease;
         }
 
         nav {
@@ -66,12 +60,14 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.5px;
         }
 
         .nav-links {
@@ -81,32 +77,31 @@
         }
 
         .nav-links a {
-            color: #ffffff;
+            color: #e2e8f0;
             text-decoration: none;
-            transition: color 0.3s ease;
             font-weight: 500;
+            transition: color 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: #6366f1;
+            color: #3b82f6;
         }
 
-        .cta-button {
+        .cta-btn {
             padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             border: none;
-            border-radius: 50px;
+            border-radius: 8px;
             color: white;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
         }
 
-        .cta-button:hover {
+        .cta-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
         }
 
         /* Hero Section */
@@ -116,21 +111,18 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            position: relative;
-            background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            padding: 0 2rem;
         }
 
         .hero-content {
             max-width: 800px;
-            padding: 0 2rem;
-            z-index: 2;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
             font-weight: 800;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff, #6366f1, #8b5cf6);
+            background: linear-gradient(135deg, #ffffff, #3b82f6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -138,57 +130,85 @@
         }
 
         .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            color: #a1a1aa;
+            font-size: 1.3rem;
+            color: #cbd5e1;
+            margin-bottom: 2.5rem;
             animation: slideUp 0.8s ease-out 0.2s both;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
+        .demo-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
             animation: slideUp 0.8s ease-out 0.4s both;
         }
 
-        .btn-primary {
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border: none;
-            border-radius: 50px;
-            color: white;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
+        .url-input {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
+        .url-input input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .url-input input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .analyze-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .hero-buttons {
+            animation: slideUp 0.8s ease-out 0.6s both;
         }
 
         .btn-secondary {
             padding: 1rem 2rem;
             background: transparent;
             border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50px;
+            border-radius: 8px;
             color: white;
             font-weight: 600;
-            font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            margin-left: 1rem;
         }
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.1);
-            border-color: #6366f1;
-            transform: translateY(-3px);
+            border-color: #3b82f6;
         }
 
         @keyframes slideUp {
@@ -218,61 +238,41 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff, #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
         }
 
         .section-header p {
             font-size: 1.2rem;
-            color: #a1a1aa;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
         }
 
         .feature-card {
             padding: 2.5rem;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
+            border-radius: 16px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #6366f1, transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .feature-card:hover::before {
-            transform: translateX(100%);
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
-            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
         }
 
         .feature-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 16px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -281,55 +281,66 @@
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.3rem;
+            font-weight: 600;
             margin-bottom: 1rem;
             color: #ffffff;
         }
 
         .feature-card p {
-            color: #a1a1aa;
-            line-height: 1.7;
+            color: #94a3b8;
+            line-height: 1.6;
         }
 
-        /* Stats Section */
-        .stats {
+        /* How it Works */
+        .how-it-works {
             padding: 6rem 2rem;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05));
+            background: rgba(255, 255, 255, 0.02);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            max-width: 800px;
+        .steps {
+            max-width: 900px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .step {
             text-align: center;
+            position: relative;
         }
 
-        .stat-item h3 {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
+            color: #ffffff;
         }
 
-        .stat-item p {
-            color: #a1a1aa;
-            font-size: 1.1rem;
-            font-weight: 500;
+        .step p {
+            color: #94a3b8;
         }
 
         /* CTA Section */
         .cta-section {
             padding: 6rem 2rem;
             text-align: center;
-            background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
         }
 
         .cta-content {
@@ -341,16 +352,32 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff, #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
         }
 
         .cta-section p {
             font-size: 1.2rem;
-            color: #a1a1aa;
+            color: #94a3b8;
             margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
         }
 
         /* Footer */
@@ -358,11 +385,6 @@
             padding: 3rem 2rem 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .footer-links {
@@ -374,19 +396,19 @@
         }
 
         .footer-links a {
-            color: #a1a1aa;
+            color: #94a3b8;
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
-            color: #6366f1;
+            color: #3b82f6;
         }
 
         .footer-bottom {
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #71717a;
+            color: #64748b;
         }
 
         /* Mobile Responsiveness */
@@ -395,51 +417,48 @@
                 display: none;
             }
 
-            .hero-buttons {
+            .url-input {
                 flex-direction: column;
-                align-items: center;
             }
 
-            .btn-primary, .btn-secondary {
-                width: 100%;
-                max-width: 280px;
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
             }
 
-            .features-grid {
+            .steps {
                 grid-template-columns: 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="bg-animation" id="bgAnimation"></div>
+    <!-- Background Pattern -->
+    <div class="bg-pattern"></div>
 
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo">Qtab AI</div>
+            <a href="#" class="logo">qtab.ai</a>
             <ul class="nav-links">
                 <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How it Works</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
-            <a href="#contact" class="cta-button">Get Started</a>
+            <a href="#try" class="cta-btn">Get Started</a>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Transform Raw Data Into Intelligent Insights</h1>
-            <p>Leverage cutting-edge AI to process, analyze, and unlock the hidden potential in your data streams with unprecedented speed and accuracy.</p>
+            <h1>AI-Powered Web Analysis & Monitoring</h1>
+            <p>Analyze web pages, track news sentiment, schedule automated reports, and get real-time insights from any online content.</p>
+            
             <div class="hero-buttons">
-                <a href="#contact" class="btn-primary">Start Processing</a>
-                <a href="#features" class="btn-secondary">Learn More</a>
+                <a href="#features" class="btn-primary">Explore Features</a>
+                <a href="#how-it-works" class="btn-secondary">Learn More</a>
             </div>
         </div>
     </section>
@@ -447,113 +466,94 @@
     <!-- Features Section -->
     <section class="features" id="features">
         <div class="section-header">
-            <h2>Powerful Data Processing Engine</h2>
-            <p>Advanced AI algorithms designed to handle complex data transformations at scale</p>
+            <h2>What You Get</h2>
+            <p>Turn any web content into actionable insights with our AI analysis</p>
         </div>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Real-time Processing</h3>
-                <p>Process massive data streams in real-time with our distributed AI architecture, delivering insights as fast as data flows in.</p>
+                <div class="feature-icon">🔍</div>
+                <h3>Web Page Analysis</h3>
+                <p>Analyze any webpage for content insights, key information, and important data extraction.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🧠</div>
-                <h3>Smart Analytics</h3>
-                <p>Advanced machine learning models automatically detect patterns, anomalies, and trends in your data without manual configuration.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>Enterprise Security</h3>
-                <p>Military-grade encryption and compliance with GDPR, SOC 2, and other industry standards ensure your data stays protected.</p>
+                <div class="feature-icon">📰</div>
+                <h3>News Monitoring</h3>
+                <p>Track news articles and get near real-time reports on breaking stories and developments.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📊</div>
-                <h3>Visual Insights</h3>
-                <p>Transform complex data into beautiful, interactive visualizations that make decision-making intuitive and actionable.</p>
+                <h3>Sentiment Tracking</h3>
+                <p>Monitor sentiment changes across articles, social media, and web content over time.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔄</div>
-                <h3>Seamless Integration</h3>
-                <p>Connect with over 200+ data sources including APIs, databases, cloud storage, and streaming platforms with zero-code setup.</p>
+                <div class="feature-icon">⏰</div>
+                <h3>Scheduled Reports</h3>
+                <p>Set up automated analysis schedules and receive regular reports on topics you care about.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">⚙️</div>
-                <h3>Auto-scaling</h3>
-                <p>Automatically scale processing power up or down based on demand, ensuring optimal performance while minimizing costs.</p>
+                <div class="feature-icon">⚡</div>
+                <h3>Real-Time Insights</h3>
+                <p>Get immediate analysis and insights as new content becomes available across the web.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Trend Analysis</h3>
+                <p>Track content trends, topic popularity, and emerging themes across multiple sources.</p>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <h3>99.9%</h3>
-                <p>Uptime Guarantee</p>
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <h2>How It Works</h2>
+            <p>Three simple steps to get insights from any web content</p>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Configure</h3>
+                <p>Set up your monitoring preferences, topics, and analysis parameters</p>
             </div>
-            <div class="stat-item">
-                <h3>10TB+</h3>
-                <p>Data Processed Daily</p>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Monitor</h3>
+                <p>Our AI continuously analyzes web content and tracks changes in real-time</p>
             </div>
-            <div class="stat-item">
-                <h3>50ms</h3>
-                <p>Average Response Time</p>
-            </div>
-            <div class="stat-item">
-                <h3>500+</h3>
-                <p>Enterprise Clients</p>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Receive Insights</h3>
+                <p>Get automated reports, alerts, and insights delivered on your schedule</p>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section" id="contact">
+    <section class="cta-section">
         <div class="cta-content">
-            <h2>Ready to Transform Your Data?</h2>
-            <p>Join thousands of companies already using our AI-powered data processing platform to gain competitive advantages and drive growth.</p>
-            <a href="mailto:admin@qtab.ai" class="btn-primary">Get Started Today</a>
+            <h2>Start Monitoring Today</h2>
+            <p>Join users who rely on qtab.ai for automated web analysis and real-time insights</p>
+            <a href="mailto:hello@qtab.ai" class="btn-primary">Get Started</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#terms">Terms of Service</a>
-                <a href="#docs">Documentation</a>
-                <a href="#support">Support</a>
-                <a href="#blog">Blog</a>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Qtab AI. All rights reserved. Built with ❤️ for people. </p>
-            </div>
+        <div class="footer-links">
+            <a href="#privacy">Privacy</a>
+            <a href="#terms">Terms</a>
+            <a href="#contact">Contact</a>
+            <a href="#api">API</a>
+            <a href="#help">Help</a>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 qtab.ai - Analyze websites and articles with AI</p>
         </div>
     </footer>
 
     <script>
-        // Animated background particles
-        function createParticles() {
-            const container = document.getElementById('bgAnimation');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-
-                // Random size and position
-                const size = Math.random() * 4 + 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-
-                container.appendChild(particle);
-            }
-        }
-
-        // Smooth scrolling for navigation links
+        // Remove all the URL demo functionality
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -571,99 +571,11 @@
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
-                header.style.background = 'rgba(10, 10, 10, 0.95)';
-                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+                header.style.background = 'rgba(15, 15, 35, 0.98)';
             } else {
-                header.style.background = 'rgba(10, 10, 10, 0.8)';
-                header.style.boxShadow = 'none';
+                header.style.background = 'rgba(15, 15, 35, 0.95)';
             }
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all feature cards and stat items
-        document.querySelectorAll('.feature-card, .stat-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // Counter animation for stats
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-item h3');
-            counters.forEach(counter => {
-                const target = counter.textContent;
-                const isPercentage = target.includes('%');
-                const isSize = target.includes('TB') || target.includes('ms');
-                const isNumber = target.includes('+');
-
-                let endValue;
-                if (isPercentage) {
-                    endValue = parseFloat(target);
-                } else if (isSize) {
-                    if (target.includes('TB')) endValue = 10;
-                    if (target.includes('ms')) endValue = 50;
-                } else if (isNumber) {
-                    endValue = parseInt(target);
-                }
-
-                let startValue = 0;
-                const duration = 2000;
-                const increment = endValue / (duration / 16);
-
-                const updateCounter = () => {
-                    startValue += increment;
-                    if (startValue < endValue) {
-                        if (isPercentage) {
-                            counter.textContent = startValue.toFixed(1) + '%';
-                        } else if (target.includes('TB')) {
-                            counter.textContent = startValue.toFixed(0) + 'TB+';
-                        } else if (target.includes('ms')) {
-                            counter.textContent = startValue.toFixed(0) + 'ms';
-                        } else {
-                            counter.textContent = startValue.toFixed(0) + '+';
-                        }
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target;
-                    }
-                };
-
-                // Start animation when stats section is visible
-                const statsObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            updateCounter();
-                            statsObserver.unobserve(entry.target);
-                        }
-                    });
-                });
-
-                statsObserver.observe(counter.closest('.stat-item'));
-            });
-        }
-
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            animateCounters();
         });
     </script>
 </body>
 </html>
-
-
